@@ -46,4 +46,35 @@ This project is licensed under the Artistic License 2.0. Here is a summary with 
 
 For more details on the license, please see the [full text of the Artistic License 2.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/artistic-2.0.md).
 
+Here's a Mermaid diagram that captures the essence of how your program works, detailing the flow from the user making a request through the API key verification to the interaction with the OpenAI API:
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant S as FastAPI Server
+    participant V as API Key Verification
+    participant O as OpenAI API
+    participant D as Database (Optional)
+
+    U->>S: Sends request with API Key and Prompt
+    S->>V: Checks API Key
+    V-->>S: Valid or Invalid
+    alt API Key is Valid
+        S->>D: (Optional) Retrieves settings based on API Key
+        D-->>S: Returns specific configurations
+        S->>O: Sends prompt to OpenAI API
+        O-->>S: Returns generated text
+        S-->>U: Sends generated text response
+    else API Key is Invalid
+        S-->>U: Returns error (403 Forbidden)
+    end
+```
+
+### Explanation of Diagram Components:
+- **User (U)**: The user sends a request to the FastAPI server including the prompt and the API key.
+- **FastAPI Server (S)**: Receives the user's request and passes the API key to the API Key Verification component.
+- **API Key Verification (V)**: Validates the provided API key. If the key is valid, the process continues; if not, it returns an error to the user.
+- **OpenAI API (O)**: If the API key is valid and optional settings are retrieved, the prompt is sent to OpenAI's API, which then returns the generated text.
+- **Database (D)**: Optionally involved for fetching specific configurations based on the API key. This is conceptual and can be implemented if there are different levels or types of access or settings per API key.
+
 ---
