@@ -46,20 +46,6 @@ async def generate_text(text_request: TextRequest):
         # Raise an HTTP 500 error
         raise HTTPException(status_code=500, detail="An error occurred on the server.")
 
-@app.get("/")
-def read_root():
-    return {
-        "message": "Welcome to the GPT Text Generation API!",
-        "description": "This API allows you to generate text using OpenAI's GPT models. You can send a POST request to the /generate-text/ endpoint with a 'prompt' to receive a generated response.",
-        "endpoints": {
-            "POST /generate-text/": "Generates text based on the provided prompt. Requires an API key in the header."
-        },
-        "usage": {
-            "curl_example": "curl -X POST https://gpt-proxy-fugqcpatf7esb6a9.westus-01.azurewebsites.net/generate-text/ -H 'Content-Type: application/json' -H 'x-api-key: Jayesh' -d '{\"prompt\": \"Tell me a short story about a brave knight.\"}'"
-        }
-    }
-
-
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
