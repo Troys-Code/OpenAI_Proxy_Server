@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException, Request, Header, Depends
 from pydantic import BaseModel
 from openai import AsyncOpenAI
 import os
+from fastapi.responses import HTMLResponse
 
 # Load environment variables
 api_key = os.getenv("OPENAI_API_KEY")
