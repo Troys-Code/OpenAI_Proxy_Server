@@ -48,7 +48,40 @@ async def generate_text(text_request: TextRequest):
 
 @app.get("/")
 def read_root():
-    return "Hello World!!"
+    return {
+        "message": "Welcome to the GPT Text Generation API!",
+        "description": (
+            "This API provides an interface to interact with OpenAI's GPT models, allowing users to generate text based on a given prompt. "
+            "The core functionality is accessed through the POST /generate-text/ endpoint, where you submit a prompt and receive a generated text response. "
+            "This can be useful for various applications, including content creation, brainstorming, or even just for fun."
+        ),
+        "endpoints": {
+            "POST /generate-text/": (
+                "This endpoint is used to generate text based on the input prompt provided in the request body. "
+                "It requires an API key, which must be included in the request header. The prompt should be passed as a JSON object with a 'prompt' field."
+            )
+        },
+        "usage_instructions": {
+            "API Key": (
+                "The API requires authentication via an API key, which should be passed in the 'x-api-key' header of your requests. "
+                "Ensure that you have the correct API key, which is set as an environment variable (PROXY_API_KEY) on the server."
+            ),
+            "Request Example": (
+                "To use the API, you can send a POST request with the following structure:"
+            ),
+            "curl_example": (
+                "curl -X POST https://gpt-proxy-fugqcpatf7esb6a9.westus-01.azurewebsites.net/generate-text/ "
+                "-H 'Content-Type: application/json' "
+                "-H 'x-api-key: Jayesh' "
+                "-d '{\"prompt\": \"Tell me a short story about a brave knight.\"}'"
+            ),
+            "Response": (
+                "The API will respond with a JSON object containing the generated text under the 'response' key. "
+                "If any error occurs, you will receive an appropriate HTTP error status code along with an error message."
+            )
+        }
+    }
+
 
 if __name__ == "__main__":
     import uvicorn
