@@ -2,11 +2,9 @@ import logging
 from fastapi import FastAPI, HTTPException, Request, Header, Depends
 from pydantic import BaseModel
 from openai import AsyncOpenAI
-from dotenv import load_dotenv
 import os
 
 # Load environment variables
-# load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialize FastAPI app
